@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scilab Lab Programs (Assignments 1 and 2)</title>
+<style>
+:root{--bg:#fff;--fg:#1c1c1e;--mut:#6b6b70;--card:#f4f4f6;--acc:#2a5bd7;--code:#eceef2;--bd:#d9d9de}
+@media (prefers-color-scheme:dark){:root{--bg:#161618;--fg:#ececee;--mut:#9a9aa0;--card:#202023;--acc:#7aa2ff;--code:#1d1d21;--bd:#333338}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;padding:12px;max-width:900px;margin:auto}
+h1{font-size:1.5rem;margin:.6em 0 .2em}h2{font-size:1.3rem;margin:1.6em 0 .4em;border-bottom:2px solid var(--acc);padding-bottom:4px}
+h3{font-size:1rem;margin:0}
+.card{background:var(--card);border-radius:10px;padding:12px 14px;margin:12px 0}
+.card li{margin:4px 0}
+table{border-collapse:collapse;width:100%;font-size:.85rem}th,td{border:1px solid var(--bd);padding:4px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+nav{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:0;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--bd);z-index:5}
+nav a{padding:3px 9px;border-radius:14px;background:var(--card);color:var(--acc);text-decoration:none;font-size:.85rem}
+nav a.grp{background:var(--acc);color:var(--bg);font-weight:600}
+section{margin:14px 0;border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;background:var(--card)}
+button{border:0;background:var(--acc);color:var(--bg);padding:5px 12px;border-radius:6px;font-size:.85rem}
+pre{margin:0;padding:12px;background:var(--code);overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;-webkit-text-size-adjust:100%}
+code{white-space:pre}
+.mut{color:var(--mut);font-size:.9rem}
+</style></head><body>
+<h1>Scilab Lab Programs</h1>
+<p class="mut">B.Sc. VII Semester, Computing with Scilab. All 35 programs with comments. Tap Copy, then paste into SciNotes.</p>
+
+<div class="card"><b>How to run</b><ol>
+<li>Install Scilab (free) from scilab.org and open <b>SciNotes</b> (type <code>scinotes</code> in the console).</li>
+<li>Paste one program, save the file as <code>name.sce</code>.</li>
+<li><b>F5</b> runs the file. <b>Ctrl+E</b> runs only the selected lines.</li>
+<li>Output appears in the Console. Graphs open in a new window. <code>input()</code> prompts are answered in the Console.</li>
+<li>For CSV and save/load programs, set your working folder first (File Browser or <code>cd</code>).</li></ol></div>
+
+<div class="card"><b>Python to Scilab</b><div class="tw"><table>
+<tr><th>Idea</th><th>Python</th><th>Scilab</th></tr>
+<tr><td>Comment</td><td><code>#</code></td><td><code>//</code></td></tr>
+<tr><td>Print / input</td><td>print, input</td><td>disp or mprintf, input</td></tr>
+<tr><td>Index</td><td>a[0], starts at 0</td><td>a(1), starts at 1, slice end included</td></tr>
+<tr><td>Matrix</td><td>np.array</td><td>[1 2; 3 4]</td></tr>
+<tr><td>Power</td><td>**</td><td>^ and .^</td></tr>
+<tr><td>Matrix multiply</td><td>@</td><td>* (and .* is element-wise)</td></tr>
+<tr><td>Not equal / and / or</td><td>!= and or</td><td>&lt;&gt; &amp; |</td></tr>
+<tr><td>if / for / while</td><td>colon + indent</td><td>then ... end, for i=1:5 ... end</td></tr>
+<tr><td>Function</td><td>def f(x):</td><td>function y=f(x) ... endfunction</td></tr>
+<tr><td>Constants</td><td>math.pi</td><td>%pi %e %i %inf %nan</td></tr>
+</table></div>
+<p class="mut">End a line with <code>;</code> to hide its output. Define functions before calling them. In the assignment, matplot() is really <code>Matplot</code> (capital M).</p></div>
+
+<nav><a href="#a1" class="grp">Assignment 1</a><a href="#a1p1">1</a><a href="#a1p2">2</a><a href="#a1p3">3</a><a href="#a1p4">4</a><a href="#a1p5">5</a><a href="#a1p6">6</a><a href="#a1p7">7</a><a href="#a1p8">8</a><a href="#a1p9">9</a><a href="#a1p10">10</a><a href="#a1p11">11</a><a href="#a1p12">12</a><a href="#a1p13">13</a><a href="#a1p14">14</a><a href="#a1p15">15</a><a href="#a2" class="grp">Assignment 2</a><a href="#a2p1">1</a><a href="#a2p2">2</a><a href="#a2p3">3</a><a href="#a2p4">4</a><a href="#a2p5">5</a><a href="#a2p6">6</a><a href="#a2p7">7</a><a href="#a2p8">8</a><a href="#a2p9">9</a><a href="#a2p10">10</a><a href="#a2p11">11</a><a href="#a2p12">12</a><a href="#a2p13">13</a><a href="#a2p14">14</a><a href="#a2p15">15</a><a href="#a2p16">16</a><a href="#a2p17">17</a><a href="#a2p18">18</a><a href="#a2p19">19</a><a href="#a2p20">20</a></nav><h2 id="a1">Assignment 1</h2><section id="a1p1"><div class="hd"><h3>Program 1: Environment commands</h3><button onclick="cp(this)">Copy</button></div><pre><code>a = 10; b = [1 2 3];          // create two variables
+disp(pwd());                  // pwd  : show present working directory
+who                           // who  : list variable names in memory
+whos                          // whos : list variables with size and type
+ls                            // ls   : list files of current folder
+dir                           // dir  : same idea as ls (detailed list)
+old = pwd();
+cd(TMPDIR);                   // cd   : change directory
+disp(pwd());
+cd(old);                      // go back
+clear b;                      // clear: remove variable b from memory
+who
+clc;                          // clc  : clear the console screen</code></pre></section><section id="a1p2"><div class="hd"><h3>Program 2: Variables, operators, constants</h3><button onclick="cp(this)">Copy</button></div><pre><code>a = 10; b = 3; c = 2.5; s = &quot;Hello&quot;; t = %t; z = 3 + 4*%i;
+// arithmetic
+disp([a+b, a-b, a*b, a/b, a^b, modulo(a,b)]);
+// relational (result is %t or %f)
+disp([a&gt;b, a&lt;b, a==b, a&lt;&gt;b, a&gt;=b, a&lt;=b]);
+// logical
+disp([t &amp; %f, t | %f, ~t]);
+// special constants
+disp(%i^2);          // -1  (imaginary unit squared)
+disp(z);             // complex number 3 + 4i
+disp(abs(z));        // 5
+disp(%e);            // 2.7182818  (Euler number)
+disp(%pi);           // 3.1415927
+disp(%inf);          // Inf (infinity)
+disp(%inf - %inf);   // Nan (undefined)
+disp(%nan);          // Nan (Not a Number)
+disp(isnan(%nan));   // %t
+disp(typeof(s));     // string
+disp(typeof(a));     // constant (numbers)
+disp(typeof(t));     // boolean</code></pre></section><section id="a1p3"><div class="hd"><h3>Program 3: Marks matrix and indexing</h3><button onclick="cp(this)">Copy</button></div><pre><code>// rows = 5 students, columns = 4 subjects
+marks = [78 85 90 66;
+         88 92 79 81;
+         55 60 72 68;
+         95 89 93 97;
+         45 52 61 58];
+disp(marks);
+disp(marks(3,2));        // element: student 3, subject 2 -&gt; 60
+disp(marks(2,:));        // whole row 2 (all subjects of student 2)
+disp(marks(:,4));        // whole column 4 (all students, subject 4)
+disp(marks(2:4,1:3));    // submatrix: rows 2-4, columns 1-3
+disp(marks($,$));        // last element -&gt; 58</code></pre></section><section id="a1p4"><div class="hd"><h3>Program 4: Vectors with colon operator</h3><button onclick="cp(this)">Copy</button></div><pre><code>r = 1:5;                 // row vector 1 2 3 4 5
+q = 10:-2:2;             // row vector with step -2
+c = (1:5)&#x27;;              // column vector (transpose of row)
+disp(r); disp(q); disp(c);
+disp(r + q);             // addition
+disp(r - q);             // subtraction
+disp(r * 2);             // scalar multiplication
+disp(r .* q);            // element-wise multiplication
+disp(q ./ r);            // element-wise division
+disp(r .^ 2);            // element-wise square
+disp(r * c);             // row*column = dot product = 55
+disp(c * r);             // column*row = 5x5 matrix</code></pre></section><section id="a1p5"><div class="hd"><h3>Program 5: Matrix operations</h3><button onclick="cp(this)">Copy</button></div><pre><code>A = [1 2; 3 4];
+B = [5 6; 7 8];
+disp(A + B);             // addition
+disp(A - B);             // subtraction
+disp(A * B);             // matrix multiplication (row x column rule)
+disp(A .* B);            // element-wise multiplication
+// Comparison: A*B = [19 22; 43 50], A.*B = [5 12; 21 32].
+// &#x27;*&#x27; follows matrix algebra (needs inner dimensions equal);
+// &#x27;.*&#x27; multiplies matching positions (needs same size).</code></pre></section><section id="a1p6"><div class="hd"><h3>Program 6: Matrix division</h3><button onclick="cp(this)">Copy</button></div><pre><code>A = [4 2; 1 3];
+B = [2 1; 5 4];
+disp(A / B);             // right division = A * inv(B)
+disp(A * inv(B));        // check: same
+disp(A \ B);             // left division = inv(A) * B
+disp(inv(A) * B);        // check: same
+disp(A ./ B);            // element-wise: A(i,j) / B(i,j)
+disp(A .\ B);            // element-wise: B(i,j) / A(i,j)
+// Difference: / and \ are matrix operations (solve linear equations:
+// x = A\b solves A*x = b). ./ and .\ work element by element.
+// A/B divides A by B; A\B divides B by A (reverse).</code></pre></section><section id="a1p7"><div class="hd"><h3>Program 7: Square matrix functions</h3><button onclick="cp(this)">Copy</button></div><pre><code>A = [4 7 2; 3 6 1; 2 5 3];
+disp(A&#x27;);                // transpose
+disp(inv(A));            // inverse (exists only if det &lt;&gt; 0)
+disp(det(A));            // determinant = 9
+disp(diag(A));           // diagonal elements 4,6,3
+disp(trace(A));          // trace = sum of diagonal = 13
+disp(A * inv(A));        // identity matrix (check)</code></pre></section><section id="a1p8"><div class="hd"><h3>Program 8: Triangular matrices and eigenvalues</h3><button onclick="cp(this)">Copy</button></div><pre><code>A = [2 1 1; 1 3 2; 1 2 4];
+disp(triu(A));           // upper triangular (zeros below diagonal)
+disp(tril(A));           // lower triangular (zeros above diagonal)
+ev = spec(A);            // eigenvalues
+disp(ev);
+disp(sum(ev));           // equals trace(A) = 9
+disp(prod(ev));          // equals det(A) = 13
+// Interpretation: A is symmetric, so all eigenvalues are real.
+// All eigenvalues &gt; 0 means A is positive definite and invertible.
+// Sum of eigenvalues = trace, product of eigenvalues = determinant.</code></pre></section><section id="a1p9"><div class="hd"><h3>Program 9: Special matrices and powers</h3><button onclick="cp(this)">Copy</button></div><pre><code>Z = zeros(2,3);          // all zeros
+O = ones(3,2);           // all ones
+I = eye(3,3);            // identity
+R = rand(3,3);           // random numbers in (0,1)
+disp(Z); disp(O); disp(I); disp(R);
+A = [1 2; 3 4];
+disp(A ^ 2);             // matrix power = A*A = [7 10; 15 22]
+disp(A .^ 2);            // element-wise square = [1 4; 9 16]
+disp(2 .^ A);            // 2 raised to each element
+disp(2 ^ A);             // matrix exponent (different result!)</code></pre></section><section id="a1p10"><div class="hd"><h3>Program 10: size() and length()</h3><button onclick="cp(this)">Copy</button></div><pre><code>A = [1 2 3 4; 5 6 7 8; 9 10 11 12];
+disp(size(A));           // [3 4] -&gt; rows, columns
+disp(size(A,1));         // 3 rows
+disp(size(A,2));         // 4 columns
+disp(size(A,&quot;*&quot;));       // 12 total elements
+disp(length(A));         // 12 -&gt; total number of elements
+// Difference: size() returns the dimensions (rows and columns);
+// length() returns only ONE number: the total count of elements
+// (for a matrix, rows*columns; for a string, its number of characters).</code></pre></section><section id="a1p11"><div class="hd"><h3>Program 11: Trigonometric functions</h3><button onclick="cp(this)">Copy</button></div><pre><code>deg = [0 30 45 60];
+rad = deg * %pi / 180;   // degrees -&gt; radians
+disp([deg&#x27; sin(rad)&#x27; sind(deg)&#x27;]);    // sin (radian) vs sind (degree)
+disp([deg&#x27; cos(rad)&#x27; cosd(deg)&#x27;]);
+disp([deg&#x27; tan(rad)&#x27; tand(deg)&#x27;]);
+disp(sin(30));           // WRONG idea: sin() treats 30 as radians = -0.988
+disp(sind(30));          // 0.5
+// Comparison: sin/cos/tan expect radians; sind/cosd/tand expect degrees.
+// After converting degrees to radians the two give the same values.
+// (tan 90 is infinite, so 90 is not used.)</code></pre></section><section id="a1p12"><div class="hd"><h3>Program 12: Hyperbolic and inverse trig</h3><button onclick="cp(this)">Copy</button></div><pre><code>x = [-1 -0.5 0 0.5 1];
+disp([x&#x27; sinh(x)&#x27; cosh(x)&#x27; tanh(x)&#x27;]);
+disp([x&#x27; asin(x)&#x27; acos(x)&#x27; atan(x)&#x27;]);   // answers in radians
+disp(asin(1) * 180/%pi);                 // 90 degrees
+// asin and acos are defined only for inputs in [-1, 1].
+// tanh lies between -1 and 1; cosh is always &gt;= 1.</code></pre></section><section id="a1p13"><div class="hd"><h3>Program 13: Descriptive statistics</h3><button onclick="cp(this)">Copy</button></div><pre><code>m = [56 78 90 45 67 88 72 91 60 79];
+disp(max(m));            // highest = 91
+disp(min(m));            // lowest = 45
+disp(sum(m));            // total = 726
+disp(mean(m));           // average = 72.6
+disp(median(m));         // middle value = 75
+disp(stdev(m));          // sample standard deviation
+disp(variance(m));       // sample variance = stdev^2
+// Interpretation: mean 72.6 vs median 75 -&gt; a few low marks pull the
+// mean slightly below the median. A large standard deviation (about 15)
+// means the marks are widely spread around the average.</code></pre></section><section id="a1p14"><div class="hd"><h3>Program 14: Covariance and correlation</h3><button onclick="cp(this)">Copy</button></div><pre><code>x = [2; 4; 6; 8; 10];            // hours studied
+y = [50; 55; 65; 78; 88];        // marks
+n = size(x,&quot;*&quot;);
+fr = ones(n,1) / n;              // equal weights
+cv = covar(x, y, fr);            // covariance
+cr = correl(x, y, fr);           // correlation coefficient
+disp(cv); disp(cr);
+disp(mean((x-mean(x)) .* (y-mean(y))));   // manual covariance (check)
+// Interpretation: correlation lies between -1 and +1.
+// Close to +1 -&gt; strong positive relationship (x up, y up).
+// Close to -1 -&gt; strong negative relationship.
+// Close to 0 -&gt; weak / no linear relationship.
+// Here cr is about 0.99 -&gt; very strong positive relationship.</code></pre></section><section id="a1p15"><div class="hd"><h3>Program 15: Linear regression and PCA</h3><button onclick="cp(this)">Copy</button></div><pre><code>// --- Linear regression: y = a*x + b ---
+x = [1 2 3 4 5 6 7 8];           // row vectors for reglin
+y = [2.1 4.2 5.9 8.1 10.2 11.8 14.1 16.0];
+[a, b, sig] = reglin(x, y);
+disp(a); disp(b); disp(sig);
+clf();
+plot(x, y, &quot;bo&quot;); plot(x, a*x + b, &quot;r-&quot;);
+xtitle(&quot;Linear regression&quot;, &quot;x&quot;, &quot;y&quot;);
+// Interpretation: a = slope (change in y per unit x, about 2),
+// b = intercept (value of y at x=0, about 0.1), sig = standard
+// deviation of residuals (small -&gt; points lie close to the line).
+
+// --- Principal component analysis ---
+// rows = observations, columns = variables
+data = [2.5 2.4 1.0;
+        0.5 0.7 0.3;
+        2.2 2.9 1.1;
+        1.9 2.2 0.9;
+        3.1 3.0 1.4;
+        2.3 2.7 1.0;
+        2.0 1.6 0.8;
+        1.0 1.1 0.5];
+[facpr, comprinc, lambda, tsquare] = princomp(data);
+disp(facpr);                      // principal axes (directions)
+disp(lambda);                     // variance along each component
+disp(lambda / sum(lambda) * 100); // % of variance explained
+// Interpretation: if the first value of the last line is large
+// (e.g. above 90 %), one component captures almost all the information,
+// so the 3 variables can be reduced to 1 dimension with little loss.
+// comprinc = data expressed in the new component axes.</code></pre></section><h2 id="a2">Assignment 2</h2><section id="a2p1"><div class="hd"><h3>Program 1: Area and circumference of a circle</h3><button onclick="cp(this)">Copy</button></div><pre><code>// ------------------------------------------------------
+// Purpose: read a radius and compute area and circumference.
+// Formulas: area = pi*r^2, circumference = 2*pi*r
+// ------------------------------------------------------
+r = input(&quot;Enter radius: &quot;);        // single-line comment: read input
+area = %pi * r^2;                   // area of circle
+circ = 2 * %pi * r;                 // circumference
+mprintf(&quot;Area = %.2f\n&quot;, area);
+mprintf(&quot;Circumference = %.2f\n&quot;, circ);</code></pre></section><section id="a2p2"><div class="hd"><h3>Program 2: Grade assignment</h3><button onclick="cp(this)">Copy</button></div><pre><code>marks = input(&quot;Enter marks: &quot;);
+if marks &lt; 0 | marks &gt; 100 then
+    mprintf(&quot;Invalid marks! Enter a value from 0 to 100.\n&quot;);
+elseif marks &gt;= 90 then
+    mprintf(&quot;Grade A\n&quot;);
+elseif marks &gt;= 75 then
+    mprintf(&quot;Grade B\n&quot;);
+elseif marks &gt;= 60 then
+    mprintf(&quot;Grade C\n&quot;);
+elseif marks &gt;= 50 then
+    mprintf(&quot;Grade D\n&quot;);
+else
+    mprintf(&quot;Fail\n&quot;);
+end</code></pre></section><section id="a2p3"><div class="hd"><h3>Program 3: Electricity bill</h3><button onclick="cp(this)">Copy</button></div><pre><code>units = input(&quot;Enter units consumed: &quot;);
+if units &lt; 0 then
+    mprintf(&quot;Invalid units\n&quot;);
+elseif units &lt;= 100 then
+    bill = units * 2;
+elseif units &lt;= 200 then
+    bill = 100*2 + (units-100)*3;
+elseif units &lt;= 400 then
+    bill = 100*2 + 100*3 + (units-200)*5;
+else
+    bill = 100*2 + 100*3 + 200*5 + (units-400)*7;
+end
+if units &gt;= 0 then
+    mprintf(&quot;Total bill = Rs. %.2f\n&quot;, bill);
+end
+// Check: 450 units -&gt; 200 + 300 + 1000 + 350 = Rs. 1850</code></pre></section><section id="a2p4"><div class="hd"><h3>Program 4: Menu-driven calculator using select</h3><button onclick="cp(this)">Copy</button></div><pre><code>mprintf(&quot;1.Addition 2.Subtraction 3.Multiplication 4.Division 5.Remainder\n&quot;);
+choice = input(&quot;Enter your choice (1-5): &quot;);
+a = input(&quot;Enter first number: &quot;);
+b = input(&quot;Enter second number: &quot;);
+select choice
+case 1 then
+    mprintf(&quot;Sum = %g\n&quot;, a + b);
+case 2 then
+    mprintf(&quot;Difference = %g\n&quot;, a - b);
+case 3 then
+    mprintf(&quot;Product = %g\n&quot;, a * b);
+case 4 then
+    if b == 0 then
+        mprintf(&quot;Error: division by zero!\n&quot;);
+    else
+        mprintf(&quot;Quotient = %g\n&quot;, a / b);
+    end
+case 5 then
+    if b == 0 then
+        mprintf(&quot;Error: division by zero!\n&quot;);
+    else
+        mprintf(&quot;Remainder = %g\n&quot;, modulo(a, b));
+    end
+else
+    mprintf(&quot;Invalid choice\n&quot;);
+end</code></pre></section><section id="a2p5"><div class="hd"><h3>Program 5: Class performance using for loop</h3><button onclick="cp(this)">Copy</button></div><pre><code>N = input(&quot;Number of students: &quot;);
+total = 0;
+highest = -%inf;
+lowest = %inf;
+for i = 1:N
+    m = input(&quot;Enter marks of student &quot; + string(i) + &quot;: &quot;);
+    total = total + m;
+    if m &gt; highest then highest = m; end
+    if m &lt; lowest then lowest = m; end
+end
+mprintf(&quot;Total marks   = %g\n&quot;, total);
+mprintf(&quot;Average marks = %.2f\n&quot;, total / N);
+mprintf(&quot;Highest marks = %g\n&quot;, highest);
+mprintf(&quot;Lowest marks  = %g\n&quot;, lowest);</code></pre></section><section id="a2p6"><div class="hd"><h3>Program 6: Digits, digit sum, reverse (while loop)</h3><button onclick="cp(this)">Copy</button></div><pre><code>n = input(&quot;Enter a positive integer: &quot;);
+temp = n; count = 0; sumd = 0; rev = 0;
+while temp &gt; 0
+    d = modulo(temp, 10);        // last digit
+    count = count + 1;
+    sumd = sumd + d;
+    rev = rev * 10 + d;
+    temp = floor(temp / 10);     // drop last digit
+end
+mprintf(&quot;Number of digits = %d\n&quot;, count);
+mprintf(&quot;Sum of digits    = %d\n&quot;, sumd);
+mprintf(&quot;Reverse          = %d\n&quot;, rev);
+// 12345 -&gt; 5 digits, sum 15, reverse 54321</code></pre></section><section id="a2p7"><div class="hd"><h3>Program 7: Menu-driven program with user-defined functions</h3><button onclick="cp(this)">Copy</button></div><pre><code>// Functions must be defined BEFORE the menu code that calls them.
+function f = fact_num(n)
+    f = 1;
+    for i = 2:n
+        f = f * i;
+    end
+endfunction
+
+function p = check_prime(n)
+    p = %t;
+    if n &lt; 2 then
+        p = %f;
+    else
+        for i = 2:floor(sqrt(n))
+            if modulo(n, i) == 0 then
+                p = %f;
+                break;
+            end
+        end
+    end
+endfunction
+
+function r = check_evenodd(n)
+    if modulo(n, 2) == 0 then
+        r = &quot;Even&quot;;
+    else
+        r = &quot;Odd&quot;;
+    end
+endfunction
+
+while %t
+    mprintf(&quot;\n1.Factorial 2.Prime check 3.Even/Odd 4.Exit\n&quot;);
+    ch = input(&quot;Enter choice: &quot;);
+    if ch == 4 then
+        mprintf(&quot;Goodbye!\n&quot;);
+        break;
+    end
+    if ch &gt;= 1 &amp; ch &lt;= 3 then
+        n = input(&quot;Enter a number: &quot;);
+    end
+    select ch
+    case 1 then
+        mprintf(&quot;Factorial of %d = %d\n&quot;, n, fact_num(n));
+    case 2 then
+        if check_prime(n) then
+            mprintf(&quot;%d is prime\n&quot;, n);
+        else
+            mprintf(&quot;%d is not prime\n&quot;, n);
+        end
+    case 3 then
+        mprintf(&quot;%d is %s\n&quot;, n, check_evenodd(n));
+    else
+        mprintf(&quot;Invalid choice\n&quot;);
+    end
+end</code></pre></section><section id="a2p8"><div class="hd"><h3>Program 8: Cell array of student information</h3><button onclick="cp(this)">Copy</button></div><pre><code>student = cell(1, 5);
+student{1} = &quot;Ravi Kumar&quot;;       // name
+student{2} = 101;                // roll number
+student{3} = 20;                 // age
+student{4} = [78 85 90];         // marks in three subjects
+student{5} = &quot;Pass&quot;;             // status
+disp(student{1});                // access individual elements
+disp(student{4}(2));             // second subject mark = 85
+student{4}(2) = 95;              // modify a mark
+if min(student{4}) &gt;= 40 then student{5} = &quot;Pass&quot;; else student{5} = &quot;Fail&quot;; end
+labels = [&quot;Name&quot;, &quot;Roll No&quot;, &quot;Age&quot;, &quot;Marks&quot;, &quot;Status&quot;];
+mprintf(&quot;\n--- Updated information ---\n&quot;);
+for i = 1:5
+    mprintf(&quot;%s : &quot;, labels(i));
+    disp(student{i});
+end</code></pre></section><section id="a2p9"><div class="hd"><h3>Program 9: Structure array of student records</h3><button onclick="cp(this)">Copy</button></div><pre><code>s(1).Name = &quot;Asha&quot;;  s(1).Roll = 1; s(1).Branch = &quot;CS&quot;;   s(1).Marks = 82; s(1).Grade = &quot;B&quot;;
+s(2).Name = &quot;Bilal&quot;; s(2).Roll = 2; s(2).Branch = &quot;Math&quot;; s(2).Marks = 91; s(2).Grade = &quot;A&quot;;
+s(3).Name = &quot;Chitra&quot;;s(3).Roll = 3; s(3).Branch = &quot;Phys&quot;; s(3).Marks = 67; s(3).Grade = &quot;C&quot;;
+// Display a selected student
+k = 2;
+mprintf(&quot;Name=%s Roll=%d Branch=%s Marks=%d Grade=%s\n&quot;, ..
+    s(k).Name, s(k).Roll, s(k).Branch, s(k).Marks, s(k).Grade);
+// Modify marks of a student (and update grade)
+s(3).Marks = 76; s(3).Grade = &quot;B&quot;;
+// Find student with highest marks
+best = 1;
+for i = 2:3
+    if s(i).Marks &gt; s(best).Marks then best = i; end
+end
+mprintf(&quot;Topper: %s with %d marks\n&quot;, s(best).Name, s(best).Marks);</code></pre></section><section id="a2p10"><div class="hd"><h3>Program 10: Export / import CSV</h3><button onclick="cp(this)">Copy</button></div><pre><code>data = [1 2 3; 4 5 6; 7 8 9.5];
+f = fullfile(pwd(), &quot;mydata.csv&quot;);
+csvWrite(data, f);                 // export to CSV
+mprintf(&quot;Saved to %s\n&quot;, f);
+clear data;                        // clear the variable
+newdata = csvRead(f);              // import back
+disp(newdata);
+disp(isequal(newdata, [1 2 3; 4 5 6; 7 8 9.5]));   // %t = data recovered</code></pre></section><section id="a2p11"><div class="hd"><h3>Program 11: Spreadsheet export, edit, import</h3><button onclick="cp(this)">Copy</button></div><pre><code>// A CSV file opens directly in Excel / LibreOffice Calc.
+m = [78 85 90; 66 70 75; 88 92 95; 55 60 58];   // 4 students, 3 subjects
+f = fullfile(pwd(), &quot;marks.csv&quot;);
+csvWrite(m, f);
+mprintf(&quot;Open %s in Excel/Calc, change a value, SAVE as CSV.\n&quot;, f);
+input(&quot;Press Enter here when you have saved the edited file...&quot;, &quot;s&quot;);
+m2 = csvRead(f);                   // if values come in one column, use csvRead(f, &quot;;&quot;)
+disp(m2);
+disp(mean(m2, &quot;c&quot;));               // average of each student (row-wise)
+disp(mean(m2, &quot;r&quot;));               // average of each subject (column-wise)
+// For old .xls files you may use: readxls(&quot;file.xls&quot;) instead.</code></pre></section><section id="a2p12"><div class="hd"><h3>Program 12: Save and load variables</h3><button onclick="cp(this)">Copy</button></div><pre><code>a = 10; b = [1 2; 3 4]; c = [0.5 1.5 2.5];
+f = fullfile(pwd(), &quot;myvars.sod&quot;);
+save(f, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;);            // save to file
+clear a b c;                       // remove from workspace
+load(f, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;);            // restore
+disp(a); disp(b); disp(c);
+disp(isequal(a, 10) &amp; isequal(b, [1 2; 3 4]) &amp; isequal(c, [0.5 1.5 2.5]));</code></pre></section><section id="a2p13"><div class="hd"><h3>Program 13: Plot y = sin(x)</h3><button onclick="cp(this)">Copy</button></div><pre><code>x = 0:0.1:2*%pi;                   // values of x
+y = sin(x);                        // values of y
+clf();
+plot(x, y, &quot;r-&quot;);
+h = gca().children(1);             // handle of the curve just drawn
+h.children.thickness = 3;          // line width
+xtitle(&quot;Graph of y = sin(x)&quot;, &quot;x (radians)&quot;, &quot;y = sin(x)&quot;);
+xgrid();</code></pre></section><section id="a2p14"><div class="hd"><h3>Program 14: Three functions in one figure</h3><button onclick="cp(this)">Copy</button></div><pre><code>x = 0:0.05:2*%pi;
+y1 = sin(x); y2 = cos(x); y3 = sin(x) + cos(x);
+clf();
+plot(x, y1, &quot;b-&quot;);                 // solid blue
+h = gca().children(1); h.children.thickness = 2;
+plot(x, y2, &quot;r--&quot;);                // dashed red
+h = gca().children(1); h.children.thickness = 2;
+plot(x, y3, &quot;g-.&quot;);                // dash-dot green
+h = gca().children(1); h.children.thickness = 3;
+xtitle(&quot;sin, cos and their sum&quot;, &quot;x (radians)&quot;, &quot;y&quot;);
+legend(&quot;y1 = sin(x)&quot;, &quot;y2 = cos(x)&quot;, &quot;y3 = sin(x)+cos(x)&quot;);
+a = gca();
+a.title.font_size = 4;
+a.x_label.font_size = 3;
+a.y_label.font_size = 3;
+xgrid();</code></pre></section><section id="a2p15"><div class="hd"><h3>Program 15: 2-D charts (histogram, bar, barh, pie)</h3><button onclick="cp(this)">Copy</button></div><pre><code>marks = [35 48 52 55 58 61 63 65 67 68 70 72 74 75 76 78 80 82 85 88 90 92 95 45 59 66 71 79 84 97];
+clf();
+subplot(2,2,1);
+histplot([0 40 50 60 70 80 90 100], marks);        // class intervals
+xtitle(&quot;Histogram of marks&quot;, &quot;Marks&quot;, &quot;Frequency density&quot;);
+subplot(2,2,2);
+first8 = marks(1:8);
+bar(1:8, first8);
+xtitle(&quot;Vertical bar: marks of 8 students&quot;, &quot;Student&quot;, &quot;Marks&quot;);
+subplot(2,2,3);
+barh(1:8, first8);
+xtitle(&quot;Horizontal bar: marks of 8 students&quot;, &quot;Marks&quot;, &quot;Student&quot;);
+subplot(2,2,4);
+counts = [sum(marks&gt;=90), sum(marks&gt;=75 &amp; marks&lt;90), sum(marks&gt;=60 &amp; marks&lt;75), ..
+          sum(marks&gt;=50 &amp; marks&lt;60), sum(marks&lt;50)];
+pie(counts, [0 0 0 0 0], [&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;Fail&quot;]);
+xtitle(&quot;Grade distribution&quot;);
+// Histogram: shape of distribution; bar charts: compare items;
+// pie: share of each category in the total.</code></pre></section><section id="a2p16"><div class="hd"><h3>Program 16: Specialized 2-D plots</h3><button onclick="cp(this)">Copy</button></div><pre><code>clf();
+subplot(2,2,1);
+theta = 0:0.01:2*%pi;
+polarplot(theta, 1 + cos(theta));                  // cardioid
+xtitle(&quot;Polar plot: r = 1 + cos(theta)&quot;);
+// Polar plot: shows quantities that depend on an angle (direction).
+
+subplot(2,2,2);
+xs = 1:20; ys = 2*xs + 5*rand(1,20);
+scatter(xs, ys);
+xtitle(&quot;Scatter plot&quot;, &quot;x&quot;, &quot;y&quot;);
+// Scatter: shows relationship / correlation between two variables.
+
+subplot(2,2,3);
+M = magic(8);                                      // values 1..64
+Matplot(M);                                        // capital M in Scilab
+f = gcf(); f.color_map = jetcolormap(64);
+xtitle(&quot;Matplot: matrix as colors&quot;);
+// Matplot: each value of a matrix is shown as a colour (heat-map).
+
+subplot(2,2,4);
+function z = g(x, y)
+    z = x.^2 + y.^2;
+endfunction
+xc = -2:0.1:2; yc = -2:0.1:2;
+zc = feval(xc, yc, g);
+contour2d(xc, yc, zc, 8);
+xtitle(&quot;Contour plot of x^2 + y^2&quot;, &quot;x&quot;, &quot;y&quot;);
+// Contour: lines joining points of equal function value.</code></pre></section><section id="a2p17"><div class="hd"><h3>Program 17: 3-D plots</h3><button onclick="cp(this)">Copy</button></div><pre><code>function z = fz(x, y)
+    z = x .* exp(-x.^2 - y.^2);
+endfunction
+x = linspace(-2, 2, 30);
+y = linspace(-2, 2, 30);
+[X, Y] = meshgrid(x, y);
+Z = X .* exp(-X.^2 - Y.^2);
+clf();
+subplot(2,3,1); surf(X, Y, Z);        xtitle(&quot;surf&quot;);
+subplot(2,3,2); plot3d(x, y, feval(x, y, fz)); xtitle(&quot;plot3d&quot;);
+subplot(2,3,3); mesh(X, Y, Z);        xtitle(&quot;mesh&quot;);
+subplot(2,3,4); hist3d(abs(rand(6,6))); xtitle(&quot;hist3d&quot;);
+subplot(2,3,5); contour(x, y, Z, 10, 35, 45); xtitle(&quot;3-D contour&quot;);</code></pre></section><section id="a2p18"><div class="hd"><h3>Program 18: Polynomial operations</h3><button onclick="cp(this)">Copy</button></div><pre><code>p = poly([6 -5 1], &quot;x&quot;, &quot;coeff&quot;);     // p(x) = 6 - 5x + x^2
+disp(p);
+disp(degree(p));                      // degree = 2
+disp(coeff(p));                       // coefficients [6 -5 1] (lowest power first)
+disp(roots(p));                       // roots 2 and 3
+disp(horner(p, 4));                   // value at x = 4 -&gt; 2
+q = poly([1 1], &quot;x&quot;, &quot;coeff&quot;);        // q(x) = 1 + x
+disp(p * q);                          // product of polynomials
+disp(derivat(p));                     // derivative</code></pre></section><section id="a2p19"><div class="hd"><h3>Program 19: Linear interpolation</h3><button onclick="cp(this)">Copy</button></div><pre><code>xs = [1 2 3 4 5];
+ys = [2 4 8 16 32];
+xq = 3.5;
+yq = interp1(xs, ys, xq, &quot;linear&quot;);
+mprintf(&quot;Estimated y at x = %g is %g\n&quot;, xq, yq);       // 12
+// manual check with the formula between (3,8) and (4,16):
+yman = 8 + (16 - 8) * (xq - 3) / (4 - 3);
+disp(yman);</code></pre></section><section id="a2p20"><div class="hd"><h3>Program 20: Cubic spline interpolation</h3><button onclick="cp(this)">Copy</button></div><pre><code>xs = 0:5;
+ys = sin(xs);
+xf = linspace(0, 5, 100);
+yf = interp1(xs, ys, xf, &quot;spline&quot;);   // cubic spline values
+// Alternative: d = splin(xs, ys, &quot;natural&quot;); yf = interp(xf, xs, ys, d);
+mprintf(&quot;Spline estimate at x = 2.5: %g\n&quot;, interp1(xs, ys, 2.5, &quot;spline&quot;));
+clf();
+plot(xs, ys, &quot;ro&quot;);                   // given data points
+plot(xf, yf, &quot;b-&quot;);                   // smooth spline curve
+xtitle(&quot;Cubic spline interpolation&quot;, &quot;x&quot;, &quot;y&quot;);
+legend(&quot;Data points&quot;, &quot;Spline curve&quot;);
+xgrid();</code></pre></section>
+<script>
+function cp(b){var t=b.parentNode.nextSibling.innerText;
+ function ok(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1500)}
+ function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(a)}
+ if(navigator.clipboard){navigator.clipboard.writeText(t).then(ok,fb)}else{fb()}}
+</script></body></html>
